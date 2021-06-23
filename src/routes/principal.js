@@ -23,7 +23,6 @@ router.route("/:id/togglelike").get(protect, toggleLike);
 router.route("/:id/togglesave").get(protect, toggleSave);
 router.route("/:id/comments").post(protect, addComment);
 router.route("/:id/comments/:commentId").delete(protect, deleteComment);
-router.route("/uploader").post(protect, uploadImage);
 
 // router.route("/").get(function (req, res) {
 //   res.status(200)

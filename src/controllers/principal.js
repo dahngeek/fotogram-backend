@@ -23,6 +23,8 @@ exports.getImages = asyncHandler(async (req, res, next) => {
   console.log(req);
   var page = req.query.page || 1;
   const images = await Image.find()
+                            .populate({path: "user",
+                            select: "username avatar"})
                             .skip((perPage * page) - perPage)
                             .limit(perPage);
 
@@ -306,7 +308,7 @@ exports.uploadImage = function (req, res, next) {
   var pid = '10000' + parseInt(Math.random() * 10000000) + '_' + file1.originalname;
 
   uploadToS3(file1, pid, function (data) {
-      var signedurl = s3.getSignedUrl('getObject', { Bucket: BUCKET, Key: pid.toString() });
+      var signedurl = s3.getSignedUrl('getObject', { Bucket: BUCKET, Key: pid.toString(), Expires: 604800 });
       res.status(200).json({ success: true, data: {url: signedurl} });
   }, function(err){
     if (err) {
