@@ -16,7 +16,7 @@ const { protect } = require("../middlewares/auth");
 
 var multer = require('multer')
 
-router.route("/").get(getImages).post(protect, addImage);
+router.route("/").get(protect, getImages).post(protect, addImage);
 router.route("/search").get(searchImage);
 router.route("/:id").get(protect, getImage).delete(protect, deleteImage);
 router.route("/:id/togglelike").get(protect, toggleLike);
