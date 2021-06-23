@@ -35,9 +35,9 @@ exports.login = asyncHandler(async (req, res, next) => {
 });
 
 exports.signup = asyncHandler(async (req, res, next) => {
-  const { fullname, username, email, password } = req.body;
-
-  const user = await User.create({ fullname, username, email, password });
+  const { fullname, username, email, password, avatar } = req.body;
+  
+  const user = await User.create({ fullname, username, email, password, avatar });
 
   const token = user.getJwtToken();
 

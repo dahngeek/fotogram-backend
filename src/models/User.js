@@ -5,32 +5,31 @@ const bcrypt = require("bcryptjs");
 const UserSchema = new mongoose.Schema({
   fullname: {
     type: String,
-    required: [true, "Please enter your fullname"],
+    required: [true, "Porfavor ingrese su nombre completo"],
     trim: true,
   },
   username: {
     type: String,
-    required: [true, "Please enter your username"],
+    required: [true, "Porfavor ingrese un usuario"],
     trim: true,
     unique: true,
   },
   email: {
     type: String,
-    required: [true, "Please enter your email"],
+    required: [true, "Porfavor ingrese su email"],
     trim: true,
     lowercase: true,
     unique: true,
   },
   password: {
     type: String,
-    required: [true, "Please enter your password"],
-    minlength: [6, "Password should be atleast minimum of 6 characters"],
-    maxlength: [12, "Password should be maximum of 12 characters"],
+    required: [true, "Porfavor ingrese una contraseña "],
+    minlength: [6, "La contraseña debe ser de almenos 6 characters"],
+    maxlength: [15, "La contraseña debe ser de maximo 15 characters"],
   },
   avatar: {
     type: String,
-    default:
-      "https://res.cloudinary.com/tylerdurden/image/upload/v1602657481/random/pngfind.com-default-image-png-6764065_krremh.png",
+    required: [true, "Porfavor suba una imagen de perfil."],
   },
   bio: String,
   website: String,

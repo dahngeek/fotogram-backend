@@ -25,7 +25,7 @@ const errorHandler = (err, req, res, next) => {
       if (err.errors[field].kind === "maxlength") {
         message = "Password should be maximum of 12 characters";
       } else {
-        message = "Password should be minimum of 6 characters";
+        message = err.errors[field].properties.message;
       }
     });
 
