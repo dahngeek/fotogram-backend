@@ -10,6 +10,7 @@
   "author": "Daniel Xutuc",
   "license": "MIT",
   "dependencies": {
+    "aws-sdk": "^2.932.0",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
@@ -17,6 +18,8 @@
     "express-hateoas-links": "^1.2.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.19",
+    "multer": "^1.4.2",
+    "multer-s3": "^2.9.0",
     "nodemon": "^2.0.4"
   }
 }

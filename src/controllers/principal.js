@@ -4,6 +4,20 @@ const User = require("../models/User");
 const Comment = require("../models/Comment");
 const asyncHandler = require("../middlewares/asyncHandler");
 
+var AWS = require('aws-sdk'),
+    fs = require('fs');
+
+const BUCKET = 'fotogramapp'
+const REGION = process.env.AWS_REGION
+const ACCESS_KEY = process.env.AWS_ACCESS_KEY_ID
+const SECRET_KEY = process.env.AWS_SECRET_ACCESS_KEY
+
+AWS.config.update({
+  accessKeyId: ACCESS_KEY,
+  secretAccessKey: SECRET_KEY,
+  region: REGION
+})
+
 exports.getImages = asyncHandler(async (req, res, next) => {
   var perPage = 10;
   console.log(req);
@@ -261,3 +275,43 @@ exports.toggleSave = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({ success: true, data: {} });
 });
+
+// SUBIDA DE IMAGENES
+
+var s3 = new AWS.S3()
+
+function uploadToS3(file, destFileName, callback, errcb) {
+  s3.putObject({
+    Bucket: BUCKET,
+    Body: file.buffer,
+    Key: destFileName.toString()
+  })
+    .promise()
+    .then(callback)
+    .catch(errcb)
+}
+
+exports.uploadImage = function (req, res, next) {
+  console.log(req);
+  if (!req.file) {
+      return res.status(403).send('expect 1 file upload named file1').end();
+  }
+  var file1 = req.file;
+
+  // this is mainly for user friendliness. this field can be freely tampered by attacker.
+  if (!/^image\/(jpe?g|png|gif)$/i.test(file1.mimetype)) {
+      return res.status(403).send('expect image file').end();
+  }
+
+  var pid = '10000' + parseInt(Math.random() * 10000000) + '_' + file1.originalname;
+
+  uploadToS3(file1, pid, function (data) {
+      var signedurl = s3.getSignedUrl('getObject', { Bucket: BUCKET, Key: pid.toString() });
+      res.status(200).json({ success: true, data: {url: signedurl} });
+  }, function(err){
+    if (err) {
+        console.error(err);
+        return res.status(500).send('failed to upload to s3').end();
+    }
+  })
+};
