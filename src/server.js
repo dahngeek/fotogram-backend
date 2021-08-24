@@ -14,6 +14,8 @@ var hateoasLinker = require('express-hateoas-links');
 // Reemplaza el .res.json standard
 app.use(hateoasLinker);
 
+app.use(express.static('public'))
+
 connectToDb();
 app.use(express.json());
 app.use(cors());
