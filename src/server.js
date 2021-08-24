@@ -25,7 +25,7 @@ app.use("/api/v1/principal", principal);
 
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 80;
 app.listen(
   PORT,
   console.log(`server started in ${process.env.NODE_ENV} mode at port ${PORT}`)

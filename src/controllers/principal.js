@@ -7,7 +7,7 @@ const asyncHandler = require("../middlewares/asyncHandler");
 var AWS = require('aws-sdk'),
     fs = require('fs');
 
-const BUCKET = 'fotogramapp'
+const BUCKET = 'nutrigram-opg'
 const REGION = process.env.AWS_REGION
 const ACCESS_KEY = process.env.AWS_ACCESS_KEY_ID
 const SECRET_KEY = process.env.AWS_SECRET_ACCESS_KEY
@@ -25,16 +25,17 @@ exports.getImages = asyncHandler(async (req, res, next) => {
   const images = await Image.find()
                             .populate({path: "user",
                             select: "username avatar"})
+                            .sort([['createdAt', -1]])
                             .skip((perPage * page) - perPage)
                             .limit(perPage);
 
 
   var hateoas_links = [];
   if(images.length == 10) {
-    hateoas_links.push({ rel: "next", method: "GET", href: process.env.APP_URL+req.baseUrl+"?page="+(page+1) });
+    hateoas_links.push({ rel: "next", method: "GET", href: process.env.APP_URL+req.baseUrl+"?page="+(parseInt(page)+1) });
   }
   if(page > 1){
-    hateoas_links.push({ rel: "prev", method: "GET", href: process.env.APP_URL+req.baseUrl+"?page="+(page-1) });
+    hateoas_links.push({ rel: "prev", method: "GET", href: process.env.APP_URL+req.baseUrl+"?page="+(parseInt(page)-1) });
   }
 
   res.status(200).json(

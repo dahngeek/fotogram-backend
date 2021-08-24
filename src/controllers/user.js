@@ -21,7 +21,7 @@ exports.getUsers = asyncHandler(async (req, res, next) => {
 exports.getUser = asyncHandler(async (req, res, next) => {
   const user = await User.findOne({ username: req.params.username })
     .select("-password")
-    .populate({ path: "images", select: "files commentsCount likesCount" })
+    .populate({ path: "images", select: "files caption createdAt tags commentsCount likesCount" })
     .populate({ path: "savedImages", select: "files commentsCount likesCount" })
     .populate({ path: "friends", select: "avatar username fullname" })
     .populate({ path: "friended", select: "avatar username fullname" })
