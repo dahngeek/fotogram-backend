@@ -22,22 +22,22 @@ app.use(express.json());
 app.use(cors());
 
 app.get('/me', function(req, res) {
-  res.sendFile(path.join(__dirname, '/public/index.html'));
+  res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 app.get('/login', function(req, res) {
-  res.sendFile(path.join(__dirname, '/public/index.html'));
+  res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 app.get('/registro', function(req, res) {
-  res.sendFile(path.join(__dirname, '/public/index.html'));
+  res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 app.get('/alumnos', function(req, res) {
-  res.sendFile(path.join(__dirname, '/public/index.html'));
+  res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 app.get('/subir', function(req, res) {
-  res.sendFile(path.join(__dirname, '/public/index.html'));
+  res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 app.get('/user/', function(req, res) {
-  res.sendFile(path.join(__dirname, '/public/index.html'));
+  res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
 // Los puntos de entrada de la API, funcionan como FACADE.
