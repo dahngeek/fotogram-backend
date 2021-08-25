@@ -6,6 +6,7 @@ const user = require("./routes/user");
 const principal = require("./routes/principal");
 const connectToDb = require("./utils/db");
 const errorHandler = require("./middlewares/errorHandler");
+const path = require('path');
 
 const app = express();
 
@@ -19,6 +20,25 @@ app.use(express.static('public'))
 connectToDb();
 app.use(express.json());
 app.use(cors());
+
+app.get('/me', function(req, res) {
+  res.sendFile(path.join(__dirname, '/public/index.html'));
+});
+app.get('/login', function(req, res) {
+  res.sendFile(path.join(__dirname, '/public/index.html'));
+});
+app.get('/registro', function(req, res) {
+  res.sendFile(path.join(__dirname, '/public/index.html'));
+});
+app.get('/alumnos', function(req, res) {
+  res.sendFile(path.join(__dirname, '/public/index.html'));
+});
+app.get('/subir', function(req, res) {
+  res.sendFile(path.join(__dirname, '/public/index.html'));
+});
+app.get('/user/', function(req, res) {
+  res.sendFile(path.join(__dirname, '/public/index.html'));
+});
 
 // Los puntos de entrada de la API, funcionan como FACADE.
 app.use("/api/v1/auth", auth);
